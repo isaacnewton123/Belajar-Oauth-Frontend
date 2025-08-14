@@ -11,7 +11,13 @@ export interface FormLogin{
     password: string
 }
 
-export interface AuthResponse {
+export interface LoginResponse {
+    token: string,
+    user: User
+}
+
+export interface RegisterResponse {
+    success: boolean,
     token: string,
     user: User
 }
