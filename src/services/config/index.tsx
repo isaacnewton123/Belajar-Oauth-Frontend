@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
+import { useSearchParams } from "next/navigation";
 
-const baseUrl = process.env.API_URL
+export const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const apiClient = axios.create({
     baseURL: baseUrl,
@@ -10,7 +11,8 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token')
+    const seacrParams = useSearchParams()
+    const token = seacrParams.get('token')
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }

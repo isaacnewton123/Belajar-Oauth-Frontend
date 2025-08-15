@@ -1,4 +1,4 @@
-import { User } from "@/app/services/config/type"
+import { User } from "@/services/config/type"
 import { ReactNode } from "react";
 
 export interface myjwtpayload {

@@ -1,16 +1,16 @@
-import { FormLogin, FormRegister } from "@/app/services/auth/type"
-import { useAuthContext } from "@/app/context/auth/useAuthContext"
-import { emailAuthApi } from "@/app/services/auth/emailAuth"
-import { toast } from "react-toastify/unstyled"
-import { useRouter } from "next/router"
+import { FormLogin, FormRegister } from "@/services/auth/type"
+import { useAuthContext } from "@/context/auth/useAuthContext"
+import { emailAuthApi } from "@/services/auth/emailAuth"
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
 
-export const useAuth = () => {
+export const useEmailAuth = () => {
 
     const {setLoading , setUser} = useAuthContext()
 
     const router = useRouter()
 
-    const useEmailRegister = async (userData: FormRegister) => {
+    const registerEmail = async (userData: FormRegister) => {
         setLoading(true)
         try {
             await emailAuthApi.emailRegister(userData)
@@ -24,7 +24,7 @@ export const useAuth = () => {
         }
     }
 
-    const useEmailLogin = async(userData: FormLogin) => {
+    const loginEmail = async(userData: FormLogin) => {
         setLoading(true)
         try{
             const response = await emailAuthApi.emailLogin(userData)
@@ -40,14 +40,14 @@ export const useAuth = () => {
             }
         } catch (error) {
             console.error('cannot login', error)
-            toast.error('email/password not valid')
+            toast.error("email or password is wrong")
         } finally {
             setLoading(false)
         }
     }
 
     return {
-        useEmailLogin,
-        useEmailRegister
+        loginEmail,
+        registerEmail
     }
 }
